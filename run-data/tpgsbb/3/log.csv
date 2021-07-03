@@ -1,5 +1,5 @@
 gen,gen_time,fitness_min,fitness_max,fitness_avg,champ_id,champ_mean,champ_std,champ_teams,champ_learners,champ_instructions,champ_act_instructions,champ_real_acts,pop_roots,pop_teams,pop_learners,hh_learners_removed,hh_teams_affected,b_teams,b_learners,b_teams_new,b_learners_new
-1,0.0,0.0,0.0,0.0,0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0.0,0.0,0.0,0.0,0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 1,0.0,0.0,0.0,0.0,0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2,0.0,0.0,0.0,0.0,0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3,0.0,0.0,0.0,0.0,0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
