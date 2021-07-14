@@ -23,13 +23,14 @@ def run_agent(args):
 
     scores = []
     
-    env = gym.make(env_name)
+    #env = gym.make(env_name)
 
     for ep in range(episodes): # episode loop
     
         if opts.reg_reset:
             agent.zeroRegisters()
 
+        env = gym.make(env_name)
         state = env.reset()
         score_ep = 0
 
@@ -52,7 +53,7 @@ def run_agent(args):
         scores.append(score_ep)
         print(f"Ep: {ep}, Score: {score_ep}")
 
-    env.close()
+        env.close()
 
     final_score = mean(scores)
 
@@ -72,7 +73,7 @@ if __name__ == "__main__":
     run_agent((agnt, "BipedalWalker-v3", 1000, 99999))
     
     if opts.reg_reset:
-        pickle.dump(agnt.team.outcomes["Scores"], open("agent-reset-scores.pkl", "wb"))
+        pickle.dump(agnt.team.outcomes["Scores"], open("agent-reset-scores-2.pkl", "wb"))
     else:
         pickle.dump(agnt.team.outcomes["Scores"], open("agent-scores.pkl", "wb"))
 
