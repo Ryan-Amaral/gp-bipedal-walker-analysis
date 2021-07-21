@@ -1,13 +1,9 @@
-from tpg.agent import Agent, loadAgent
-import pickle
+from tpg.trainer import Trainer, loadTrainer
+from tpg.agent import Agent
 import gym
 from numpy import append, mean, std, clip
 from math import sin, cos, pi
-from optparse import OptionParser
-
-parser = OptionParser()
-parser.add_option("--reg_reset", "-r", action="store_true", dest="reg_reset", default=False)
-(opts, args) = parser.parse_args()
+import pickle
 
 """
 Function to run a single agent on the environment, compatible with multiprocessing.
@@ -27,8 +23,7 @@ def run_agent(args):
 
     for ep in range(episodes): # episode loop
     
-        if opts.reg_reset:
-            agent.zeroRegisters()
+        agent.zeroRegisters()
 
         env = gym.make(env_name)
         state = env.reset()
@@ -66,14 +61,34 @@ def run_agent(args):
     
     
     agent.reward(final_score, env_name)
-    
+
 if __name__ == "__main__":
-    agnt = loadAgent("agent.pkl")
+    trainer = loadTrainer("trainer.pkl")
+    agents = trainer.getAgents(sortTasks=["BipedalWalker-v3"])[:5]
 
-    run_agent((agnt, "BipedalWalker-v3", 1000, 99999))
+    best_agent = None
+    best_mean = -999999
+
+    for i in range(5):
+        run_agent((agents[i], "BipedalWalker-v3", 100, 99999))
+        
+        if agents[i].team.outcomes["Mean"] > best_mean:
+            best_agent = agents[i]
+            best_mean = agents[i].team.outcomes["Mean"]
+        
+        
+    print(f"Final Mean: {best_mean}")
+    print(f"Final Std: {best_agent.team.outcomes['Std']}")
+    best_agent.saveToFile(f"agent2.pkl")
+    pickle.dump(best_agent.team.outcomes["Scores"], open("agent-scores-3.pkl", "wb"))
     
-    if opts.reg_reset:
-        pickle.dump(agnt.team.outcomes["Scores"], open("agent-reset-scores-2.pkl", "wb"))
-    else:
-        pickle.dump(agnt.team.outcomes["Scores"], open("agent-scores.pkl", "wb"))
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
